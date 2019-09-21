@@ -1,0 +1,12 @@
+.gradle
+.idea
+.project
+.classpath
+.settings
+.metadata
+gradlew.bat
+gradlew
+gradle
+build
+out
+bin
