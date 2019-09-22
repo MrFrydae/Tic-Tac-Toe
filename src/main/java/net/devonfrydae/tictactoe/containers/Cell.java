@@ -86,7 +86,6 @@ public class Cell {
      * @return true if the cell was set correctly, and
      *         will return false if this cell is already owned
      */
-
     boolean setComputerOwned(boolean force) {
         if (!force) {
             if (isFree()) {
@@ -110,7 +109,12 @@ public class Cell {
         return type.symbol;
     }
 
-    private enum CellState {
+    @Override
+    public String toString() {
+        return getDisplay() + "";
+    }
+
+    protected enum CellState {
         COMPUTER('O'), FREE(' '), PLAYER('X');
 
         char symbol;

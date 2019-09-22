@@ -3,6 +3,10 @@ package net.devonfrydae.tictactoe.containers;
 import net.devonfrydae.tictactoe.containers.winscenarios.Column;
 import net.devonfrydae.tictactoe.containers.winscenarios.Diagonal;
 import net.devonfrydae.tictactoe.containers.winscenarios.Row;
+import net.devonfrydae.tictactoe.containers.winscenarios.WinScenario;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Table {
     private Cell[][] cells = new Cell[3][3];
@@ -29,7 +33,7 @@ public class Table {
      * @param column the column to find
      * @return the cell at the provided location
      */
-    private Cell getCell(int row, int column) {
+    public Cell getCell(int row, int column) {
         return cells[row][column];
     }
 
@@ -132,26 +136,84 @@ public class Table {
      * @return true if this is a winning table
      */
     public boolean isWon() {
-        // Check if any diagonals are valid
-        if (new Diagonal(this, true).isWon()) {
-            return true;
+        return getWinningScenario() != null;
+    }
+
+    private WinScenario getWinningScenario() {
+        // Check for primary diagonal
+        Diagonal primaryDiagonal = new Diagonal(this, true);
+        if (primaryDiagonal.isWon()) {
+            return primaryDiagonal;
         }
 
-        if (new Diagonal(this, false).isWon()) {
-            return true;
+        // Check for secondary diagonal
+        Diagonal secondaryDiagonal = new Diagonal(this, false);
+        if (secondaryDiagonal.isWon()) {
+            return secondaryDiagonal;
         }
 
-        // Check for a winning row or column
+        // Check for a winning row or colum
         for (int i = 0; i < 3; i++) {
-            if (new Row(this, i).isWon()) {
-                return true;
+            Row row = new Row(this, i);
+            if (row.isWon()) {
+                return row;
             }
 
-            if (new Column(this, i).isWon()) {
-                return true;
+            Column column = new Column(this, i);
+            if (column.isWon()) {
+                return column;
             }
         }
 
-        return false;
+        return null;
+    }
+
+    /**
+     * Gets the display character of the winner
+     *
+     * @return the winner of the game
+     */
+    public char getWinner() {
+        WinScenario winScenario = getWinningScenario();
+        if (winScenario == null) {
+            return ' ';
+        }
+
+        return winScenario.getWinner();
+    }
+
+    /**
+     * Clears the console and prints out the table
+     */
+    public void printTable() {
+        System.out.print("\033[H\033[2J"); // Clear the text in console
+        System.out.println(getCell(0, 0) + "|" + getCell(0, 1) + "|" + getCell(0, 2));
+        System.out.println("-+-+-");
+        System.out.println(getCell(1, 0) + "|" + getCell(1, 1) + "|" + getCell(1, 2));
+        System.out.println("-+-+-");
+        System.out.println(getCell(2, 0) + "|" + getCell(2, 1) + "|" + getCell(2, 2));
+    }
+
+    /**
+     * @return a list of available cells in this table
+     */
+    public List<Cell> getOpenCells() {
+        List<Cell> list = new ArrayList<>();
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                Cell cell = getCell(row, col);
+                if (cell.isFree()) {
+                    list.add(cell);
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * @return true if this table is completely filled
+     */
+    public boolean isFull() {
+        return getOpenCells().isEmpty();
     }
 }

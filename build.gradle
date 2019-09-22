@@ -9,7 +9,7 @@ plugins {
 mainClassName = 'net.devonfrydae.tictactoe.TicTacToe'
 
 group 'net.devonfrydae'
-version '0.3-SNAPSHOT'
+version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
