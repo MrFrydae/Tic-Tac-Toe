@@ -3,6 +3,7 @@ package net.devonfrydae.tictactoe.containers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -88,4 +89,15 @@ public class TableTest {
         assertFalse(table.isWon());
     }
     // </editor-fold>
+
+    @Test
+    public void testAmountOfOpenCells() {
+        table.setPlayerOwned(0, 0);
+        table.setPlayerOwned(0, 1);
+        table.setComputerOwned(0, 2);
+        assertEquals(6, table.getOpenCells().size());
+
+        table.setComputerOwned(1, 2);
+        assertEquals(5, table.getOpenCells().size());
+    }
 }
