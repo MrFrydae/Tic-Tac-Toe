@@ -10,7 +10,7 @@ public class TicTacToe {
 
         setOptions(args);
 
-        new Game();
+        new GUI();
     }
 
     /**

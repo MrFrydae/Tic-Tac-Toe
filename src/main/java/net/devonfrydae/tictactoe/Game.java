@@ -18,9 +18,9 @@ public class Game {
      */
     public Game() {
         table = new Table();
-        table.printTable();
+        //table.printTable();
 
-        playersTurn();
+        //playersTurn();
     }
 
     /**

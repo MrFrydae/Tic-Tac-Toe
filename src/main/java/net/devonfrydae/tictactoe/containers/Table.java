@@ -5,6 +5,9 @@ import net.devonfrydae.tictactoe.containers.winscenarios.Diagonal;
 import net.devonfrydae.tictactoe.containers.winscenarios.Row;
 import net.devonfrydae.tictactoe.containers.winscenarios.WinScenario;
 
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Float;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,7 @@ public class Table {
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
                 if (cells[row][column] == null) {
-                    cells[row][column] = new Cell();
+                    cells[row][column] = new Cell(row, column);
                 }
             }
         }
@@ -215,5 +218,29 @@ public class Table {
      */
     public boolean isFull() {
         return getOpenCells().isEmpty();
+    }
+    
+    public void drawTable(Graphics2D g) {
+    	int min = 100; int max = 500; int minCenter = 233; int maxCenter = 367;
+    	
+    	Line2D topBorder = new Line2D.Float(min, min, max, min);
+    	Line2D bottomBorder = new Line2D.Float(min, max, max, max);
+    	Line2D leftBorder = new Line2D.Float(min, min, min, max);
+    	Line2D rightBorder = new Line2D.Float(max, min, max, max);
+    	
+    	g.draw(topBorder);
+    	g.draw(bottomBorder);
+    	g.draw(leftBorder);
+    	g.draw(rightBorder);
+    	
+    	Line2D topHorizontal = new Line2D.Float(min, minCenter, max, minCenter);
+		Line2D bottomHorizontal = new Line2D.Float(min, maxCenter, max, maxCenter);
+		Line2D leftVertical = new Line2D.Float(minCenter, min, minCenter, max);
+		Line2D rightVertical = new Line2D.Float(maxCenter, min, maxCenter, max);
+		
+		g.draw(topHorizontal);
+		g.draw(bottomHorizontal);
+		g.draw(leftVertical);
+		g.draw(rightVertical);
     }
 }

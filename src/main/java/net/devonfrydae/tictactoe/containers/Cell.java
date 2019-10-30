@@ -1,13 +1,22 @@
 package net.devonfrydae.tictactoe.containers;
 
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Line2D;
+
 public class Cell {
+	private int[] centerPoints = new int[] {167, 300, 467};
     private CellState type;
+    private int row;
+    private int column;
 
     /**
      * Initializes this object as an unowned cell
      */
-    public Cell() {
+    public Cell(int row, int column) {
         this.type = CellState.FREE;
+        this.row = row;
+        this.column = column;
     }
 
     /**
@@ -107,6 +116,18 @@ public class Cell {
      */
     public char getDisplay() {
         return type.symbol;
+    }
+    
+    
+    
+    public void drawCell(Graphics2D g) {
+    	if (!isFree()) {
+    		return;
+    	}
+    	
+    	if (isPlayerOwned()) {
+    		
+    	}
     }
 
     @Override

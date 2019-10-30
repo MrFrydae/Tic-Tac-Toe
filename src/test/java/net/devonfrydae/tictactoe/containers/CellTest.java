@@ -12,7 +12,7 @@ public class CellTest {
 
     @BeforeEach
     public void setup() {
-        cell = new Cell();
+        cell = new Cell(0, 0);
     }
 
     @Test
